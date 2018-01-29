@@ -1,0 +1,98 @@
+class Car{
+		
+
+	field boolean vertype;
+	field int size;
+	field int locationx;
+	field int locationy;
+	field String name;
+	field boolean chosen;
+	
+		
+	constructor Car new(boolean v,int s,int x,int y,String n,boolean special){
+
+		let vertype = v;
+		let size = s;
+		let locationx = x;
+		let locationy = y;
+		let name = n;
+		let chosen = false;
+		
+			
+		return this;
+
+	}
+
+	method boolean gettype(){
+		return vertype;
+	}
+
+	method int getx(){
+		return locationx;
+	}
+	method int gety(){
+		return locationy;
+	}
+	method int getsize(){
+		return size;
+	}
+	method boolean getch(){
+		return chosen;
+	}
+
+	method void setch(boolean b){
+		
+		let chosen = b;
+		
+		return;
+	}
+
+
+	method void setlocation(int x,int y){
+		
+			let locationx = locationx + x;
+		
+			let locationy = locationy + y;
+		
+
+		return;
+	}
+
+
+	
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

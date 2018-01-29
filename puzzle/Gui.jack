@@ -1,0 +1,194 @@
+class Gui{
+		
+
+	field Game game;
+	
+		
+	constructor Gui new(Game g){
+
+		let game = g;
+
+		do paint(game);
+			
+		return this;
+
+	}
+
+
+	method void paint(Game game){
+		var int i;
+		var int j;
+		var Car car;
+		var boolean v;
+		var int s;
+		var int xl;
+		var int yl;
+		var int xle;
+		var int yle;
+		var String name;
+		var int textx;
+		var int texty;
+		var int carsno;
+
+		let carsno = game.getcarnumber();
+
+		do Screen.clearScreen();
+		do Screen.setColor(true);
+		do Screen.drawRectangle(0,0,254,254);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(2,2,252,252);
+		do Screen.drawRectangle(253,87,254,125);
+		do Screen.setColor(true);
+		
+		let i=0;
+		let j = 42;
+			while(i<5){
+				do Screen.drawLine((1+j),(1),(1+j),(252));
+				do Screen.drawLine((1),(1+j),(252),(1+j));
+				let i=i+1;
+				let j=j+42;
+			}
+
+		let i=0;
+		let j=0;
+		
+		while(i<carsno){
+		
+		let car = game.getcar(i);
+		do Screen.setColor(true);
+		let v = car.gettype();
+		let xl = car.getx();
+		let yl = car.gety();
+		let s = car.getsize();
+		let xl = Math.multiply(xl,42)+3;
+		let yl = Math.multiply(yl,42)+3;
+		let name = "A";
+		let textx = Math.multiply(xl,5)+5;
+		
+		if (~v){
+			let xle = Math.multiply(s,42)+(xl-4);
+			let yle =42+(yl-4);
+		} else {
+			let xle = 42+(xl-4);
+			let yle = Math.multiply(s,42)+(yl-4);
+		}
+		
+		do Screen.drawRectangle((xl),(yl),(xle),(yle));
+		if (car.getch()){
+			do Screen.setColor(false);
+			do Screen.drawRectangle((xl+5),(yl+5),(xle-5),(yle-5));
+			do Screen.setColor(true);
+			do Screen.drawRectangle((xl+10),(yl+10),(xle-10),(yle-10));
+		}
+				
+
+		let i=i+1;
+		}
+		
+		return;
+
+	}
+
+		
+	method void paintcars(Game game){
+		var int i;
+		var int j;
+		var Car car;
+		var boolean v;
+		var int s;
+		var int xl;
+		var int yl;
+		var int xle;
+		var int yle;
+		var String name;
+		var int textx;
+		var int texty;
+		var int carsno;
+
+		let carsno = game.getcarnumber();
+				
+		while(i<carsno){
+		
+		let car = game.getcar(i);
+		do Screen.setColor(true);
+		let v = car.gettype();
+		let xl = car.getx();
+		let yl = car.gety();
+		let s = car.getsize();
+		let xl = Math.multiply(xl,42)+3;
+		let yl = Math.multiply(yl,42)+3;
+		let name = "A";
+		let textx = Math.multiply(xl,5)+5;
+		
+		if (~v){
+			let xle = Math.multiply(s,42)+(xl-4);
+			let yle =42+(yl-4);
+		} else {
+			let xle = 42+(xl-4);
+			let yle = Math.multiply(s,42)+(yl-4);
+		}
+		
+		do Screen.drawRectangle((xl),(yl),(xle),(yle));
+		if (car.getch()){
+			do Screen.setColor(false);
+			do Screen.drawRectangle((xl+5),(yl+5),(xle-5),(yle-5));
+			do Screen.setColor(true);
+			do Screen.drawRectangle((xl+10),(yl+10),(xle-10),(yle-10));
+		}
+				
+
+		let i=i+1;
+		}
+		
+		return;
+
+	
+	}	
+
+	
+
+	method Gui getgui(){
+			return this;
+		}
+	
+	method void reset(){
+		do Screen.clearScreen();
+		return;
+	}
+	
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

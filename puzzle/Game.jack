@@ -1,0 +1,382 @@
+class Game{
+	
+	
+
+
+
+		
+	field int level;
+	field Array cars;
+	field Array row;
+	field Array column;
+	field int carnumber;
+	field Gui gui;
+		
+		
+		
+	constructor Game new(int lev){
+
+		var int counter;
+		var Car car;
+		let level = lev;
+		let counter=0;
+		
+						//build the grid
+		do Buildgrid();
+
+
+						//build the cars acording to level
+		if (level=1){
+			
+			let cars = Array.new(11);
+			let carnumber = 11;
+
+			let car = Car.new(true,2,0,0,"A",false);
+			let cars[0] = car;
+			let car = Car.new(false,2,0,2,"A",false);
+			let cars[1] = car;
+			let car = Car.new(false,3,0,3,"A",false);
+			let cars[2] = car;
+			let car = Car.new(false,2,0,5,"A",false);
+			let cars[3] = car;
+			let car = Car.new(true,2,2,4,"A",false);
+			let cars[4] = car;
+			let car = Car.new(false,3,3,0,"A",true);
+			let cars[5] = car;
+			let car = Car.new(true,2,3,1,"A",false);
+			let cars[6] = car;
+			let car = Car.new(false,2,4,4,"A",false);
+			let cars[7] = car;
+			let car = Car.new(true,2,4,2,"A",false);
+			let cars[8] = car;
+			let car = Car.new(true,3,5,1,"A",false);
+			let cars[9] = car;
+			let car = Car.new(false,2,3,5,"A",false);
+			let cars[10] = car;
+			
+		}
+		
+		if (level=3){
+			
+			let cars = Array.new(10);
+			let carnumber = 10;
+
+			let car = Car.new(true,3,0,0,"A",false);
+			let cars[0] = car;
+			let car = Car.new(false,2,0,3,"A",false);
+			let cars[1] = car;
+			let car = Car.new(false,2,0,5,"A",false);
+			let cars[2] = car;
+			let car = Car.new(false,2,2,3,"A",false);
+			let cars[3] = car;
+			let car = Car.new(false,2,2,5,"A",false);
+			let cars[4] = car;
+			let car = Car.new(false,2,1,2,"A",true);
+			let cars[5] = car;
+			let car = Car.new(true,2,2,0,"A",false);
+			let cars[6] = car;
+			let car = Car.new(false,3,3,0,"A",false);
+			let cars[7] = car;
+			let car = Car.new(true,2,3,1,"A",false);
+			let cars[8] = car;
+			let car = Car.new(true,3,5,3,"A",false);
+			let cars[9] = car;
+			
+		}
+
+		do fillgrid();
+
+		
+		
+
+		return this;
+
+	}
+
+	method void start(){
+		
+		var int key;
+		var int chosencar;
+		var boolean dir;
+		var boolean v;
+		var Car car;
+		var int i;
+
+		let key = 0;
+		let i = 0;
+		
+
+		while(~gameover(cars[1])){
+
+				
+			let key = Keyboard.keyPressed();
+		
+			if ((key>47)&(key<58)){
+				while (i<carnumber){
+					let car = cars[i];
+					do car.setch(false);
+					let i = i+1;
+					}
+					let i =0;
+
+
+				let chosencar= key-48;
+				let car = cars[chosencar];
+				let v = car.gettype();
+				
+				do car.setch(true);
+				let gui = gui.getgui();
+				do gui.paintcars(this);
+			}
+
+			if (((key=133)&v)|(~v&(key=132))){	
+					do movecar(cars[chosencar],true);
+			} 
+			if (((key=131)&v)|(~v&(key=130))) {
+					do movecar(cars[chosencar],false);
+				
+			}
+
+			
+		}
+
+		return;
+	}
+
+	
+	method void Buildgrid(){
+
+		var int i;
+		var int j;
+		var boolean full;
+		let full=false;		
+		
+		let column = Array.new(6);
+		
+				let i = 0;
+
+			while(i<6){
+						
+				let row = Array.new(6);
+				
+
+				let j = 0;
+
+				while (j<6){
+
+					let row[j] = full;
+					let j = j + 1;
+					
+							
+				}
+				
+				let column[i] = row;
+				let i = i + 1;
+			}
+
+		
+		return;
+
+	}
+
+
+
+	method void fillgrid(){
+
+		var int i;
+		var int j;
+		var int locationx;
+		var int locationy;
+		var int size;
+		var boolean v;
+		var Car car;
+		
+		
+				
+			let i=0;
+			let j=0;
+			
+			
+			while (i<carnumber){
+				let car = cars[i];
+				let locationx = car.getx();
+				let locationy = car.gety();
+				let size = car.getsize();
+				let v = car.gettype();
+				
+				while (j<size){
+	
+					if (v){
+					//	let column[1][2] = true;
+						
+						
+					//	let temp = column[(locationx+j)];
+					//	let temp[locationy] = true;
+					} else {
+					//	let temp = column[locationx];
+					//	let temp[locationy+j] = true;
+					}
+
+					let j = j+1;
+				}
+
+				let j = 0;
+				let i = i + 1;
+			}
+
+		return;
+
+	}
+	
+	
+
+
+
+	method void movecar(Car c, boolean dir){
+		var boolean moved;
+		var boolean v;
+		var int x;
+		var int y;
+		var int s;
+		let x = c.getx();
+		let y = c.gety();
+		let s = c.getsize();
+		let v = c.gettype();
+		let moved  = false;
+		if (v){
+			if(dir&(((y+s)<6)&checkfree(x,(y+s)))){
+				do c.setlocation(0,1);
+				let moved = true;
+			} 
+			if((~dir)&(((y)>0)&checkfree(x,(y-1)))){
+				do c.setlocation(0,-1);
+				let moved = true;
+			}
+		} else {
+			if(dir&(((x+s)<6)&checkfree((x+s),y))){
+				do c.setlocation(1,0);
+				let moved = true;
+			}
+			if((~dir)&(((x)>0)&checkfree((x-1),y))){
+				do c.setlocation(-1,0);
+				let moved = true;
+			}
+			if((dir&(y=2))&((x+s)>5)){
+				do c.setlocation(1,0);
+				let moved = true;
+			}
+			
+		
+		}
+
+		if(moved){
+		let gui = gui.getgui();
+		do gui.paint(this);
+		}
+		return;
+	}
+
+
+
+	method boolean checkfree(int x, int y){
+		var Car car;
+		var int i;
+		let i =0;
+
+		while (i<carnumber){
+
+		let car = cars[i];
+
+		if(  (              (car.getx()=x)  |  (   ( ((car.getx()=(x-1))&(car.getsize()=2))  |  ((car.getx()=(x-2))&(car.getsize()=3)) )  &  (~(car.gettype()))  )    )    &(car.gety()=y)){
+			return false;
+		}
+
+		if(  (   (car.gety()=y)  |  (   ( ((car.gety()=(y-1))&(car.getsize()=2))  |  ((car.gety()=(y-2))&(car.getsize()=3)) )  &  ((car.gettype()))  )      )  &(car.getx()=x)){
+			return false;
+		}
+
+
+		let i = i+1;
+
+		}
+
+		return true;
+
+
+	}
+
+
+	method boolean gameover(Car c){
+		var int x;
+		let x = c.getx();
+		if (x>5){
+			
+			do gui.reset();
+			do Output.moveCursor(12,25);
+
+			do Output.printString("GAME OVER!!!");
+
+			
+			return true;
+		} 
+	return false;
+	
+		
+		
+
+	}
+
+
+
+	method Car getcar(int num){
+		var int e;
+		var Car c;
+		
+		let e=num;
+		let c=cars[num];
+		
+		return c;
+
+	}
+	
+	method int getcarnumber(){
+		
+		
+		return carnumber;
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

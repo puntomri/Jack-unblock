@@ -1,0 +1,82 @@
+class Main{
+
+	static Gui gui;
+	
+	
+	
+
+
+	function void main(){
+
+		var boolean keyb;
+
+		var Game game;
+		
+				
+		let keyb = false;
+
+		do Output.moveCursor(12,25);
+
+		do Output.printString("PUZZLE GAME");
+
+		do Output.println();
+
+		do Output.moveCursor(15,20);
+
+		do Output.printString("PRESS X KEY TO START");
+
+		do Output.println();
+
+		while(~keyb){
+			if ((Keyboard.keyPressed()=88)) {
+				let keyb = true;
+			}
+		}
+
+		do Screen.clearScreen();
+
+		let game = Game.new(1);
+		let gui = Gui.new(game);
+
+		do game.start();
+
+		
+		return;
+
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
